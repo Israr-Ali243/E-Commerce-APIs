@@ -50,7 +50,7 @@ class Myproject01ApplicationTests {
 		user.setPhoneNumber("03453991846");
 		user.setUserPic("defult.png");
 		user.setEmail("k213840@nu.edu.pk");
-		user.setPassword("abcd");
+		user.setPassword("abcde");
 
 		product.setUser(user);
 
