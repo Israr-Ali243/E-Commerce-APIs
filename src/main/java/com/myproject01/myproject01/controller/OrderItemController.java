@@ -7,8 +7,4 @@ import org.springframework.web.bind.annotation.*;
 public class OrderItemController {
 
 
-    @GetMapping("/home")
-public String homePage(){
-    return "index";
-}
 }

@@ -17,8 +17,7 @@ public class CartItemController {
     @Autowired
     private CartItemService cartItemService;
 
-
-
+    // get all Product from the cart.
     @GetMapping("/get")
     public ResponseEntity<List<CartItemDTO>> getAllCartItem(){
         return ResponseEntity.ok(this.cartItemService.getAllrtItem());
