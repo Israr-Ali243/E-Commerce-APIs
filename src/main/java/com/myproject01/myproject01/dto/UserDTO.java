@@ -14,7 +14,7 @@ import java.awt.*;
 public class UserDTO {
 
     private int id;
-    @Size(min = 2 , message = "Enter Name size Greater than 2 charcters")
+    @Size(min = 2 , message = "Enter Name Size Greater than 2 charcters")
     private String name;
     @Size(min = 8, message = "Password must be 8 characters.")
     private String password;
