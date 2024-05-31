@@ -82,6 +82,7 @@ public class ProductServiceImpl  implements ProductService {
                 System.out.println("byte 2 "+bytes);
                 String base64Image = Base64.getEncoder().encodeToString(bytes);
                 dtoList.get(i).setImage(base64Image);
+
             }
         }
 

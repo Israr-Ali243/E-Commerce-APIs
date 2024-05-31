@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(value = "/cart")
 public class CartItemController {
     @Autowired
     private CartItemService cartItemService;
 
     // get all Product from the cart.
-    @GetMapping("/get")
+    @GetMapping("/getall")
     public ResponseEntity<List<CartItemDTO>> getAllCartItem(){
         return ResponseEntity.ok(this.cartItemService.getAllrtItem());
     }
@@ -32,9 +32,9 @@ public class CartItemController {
         return ResponseEntity.ok(cartItemDTO);
     }
 
-    @PostMapping("/category/{CategoryId}/product/{productId}")
-    public ResponseEntity<CartItemDTO> createCartItem(@RequestBody CartItemDTO cartItemDTO, @PathVariable("id") Integer Userid, @PathVariable("CategoryId") Integer categoryId,@PathVariable("productId") Integer productId){
-        CartItemDTO cartItemDTO1 = this.cartItemService.CreateCartItem(cartItemDTO, Userid, categoryId, productId);
+    @PostMapping("/add/user/{userID}/category/{CategoryId}/product/{productId}")
+    public ResponseEntity<CartItemDTO> createCartItem(@RequestBody CartItemDTO cartItemDTO, @PathVariable("userID") Integer userID, @PathVariable("CategoryId") Integer categoryId,@PathVariable("productId") Integer productId){
+        CartItemDTO cartItemDTO1 = this.cartItemService.CreateCartItem(cartItemDTO, userID, categoryId, productId);
         System.out.println(cartItemDTO1);
         return ResponseEntity.ok(cartItemDTO1);
     }

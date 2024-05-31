@@ -2,6 +2,7 @@ package com.myproject01.myproject01.service.serviceImp;
 
 import com.myproject01.myproject01.dto.CartItemDTO;
 import com.myproject01.myproject01.dto.CategoryDTO;
+import com.myproject01.myproject01.dto.ProductDTO;
 import com.myproject01.myproject01.entity.Product;
 import com.myproject01.myproject01.entity.User;
 import com.myproject01.myproject01.entity.cartItem;
@@ -102,7 +103,28 @@ public class CartItemServiceImpl implements CartItemService {
         cartItemDTO.setId(cartItem.getCartId());
         cartItemDTO.setSubtotal(cartItem.getSubtotal());
         cartItemDTO.setQuantity(cartItem.getQty());
+        cartItemDTO.setUserID(cartItem.getUser().getId());
+       Optional<Product> product1 =   this.productRepository.findById((long) cartItem.getProduct().getProductId());
+//        cartItem.setProduct(product1.get());
+
+        cartItemDTO.setProductDTO( productTodto(product1.get()));
+
+
+
         return cartItemDTO;
+    }
+
+    public ProductDTO productTodto(Product product){
+        ProductDTO productDTO = new ProductDTO();
+
+        productDTO.setProductId(product.getProductId());
+        productDTO.setProductPrice(product.getProductPrice());
+        productDTO.setProductDescription(product.getProductDescription());
+        productDTO.setInStock(product.isInStock());
+        productDTO.setImageName(product.getImageName());
+        productDTO.setProducttitle(product.getProducttitle());
+
+        return productDTO;
     }
 
 }

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.awt.*;
+
 @NoArgsConstructor
 @Setter
 @Getter
@@ -21,6 +23,7 @@ public class UserDTO {
     @Size( message = "Please Provide the valid Phone Number")
     private String phoneNumber;
     private  String userAddress;
+
 
     @Override
     public String toString() {

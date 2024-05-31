@@ -17,5 +17,6 @@ public class CartItemDTO {
     private int quantity;
     private long subtotal;
     private ProductDTO productDTO;
-    private CategoryDTO categoryDTO;
+
+    private int UserID;
 }

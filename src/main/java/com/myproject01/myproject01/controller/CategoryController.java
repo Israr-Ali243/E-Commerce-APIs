@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping(value = "/home")
+@RestController
+@RequestMapping(value = "/category")
 @Slf4j
 public class CategoryController {
 
@@ -40,17 +40,17 @@ public class CategoryController {
         return "Categeory Deleted Sucefully";
      }
 
-     @GetMapping("{id}")
+     @GetMapping("/{id}")
      public ResponseEntity<CategoryDTO> getCategoryByID(@PathVariable("id") Integer Id){
         return ResponseEntity.ok(this.categoryService.getCategoryById(Id));
      }
 
-    @RequestMapping("/admin")
-    public ResponseEntity<Category> getCategorys(Model model){
+    @GetMapping("/getall")
+    public ResponseEntity<List<CategoryDTO>> getCategorys(){
         List<CategoryDTO> list =  this.categoryService.getAllCategory();
         System.out.println(list);
 //        model.addAttribute("category", list);
-        return ResponseEntity.ok((Category) this.categoryService.getAllCategory());
+        return ResponseEntity.ok(this.categoryService.getAllCategory());
     }
 
 }

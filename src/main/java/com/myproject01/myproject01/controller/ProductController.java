@@ -2,20 +2,20 @@ package com.myproject01.myproject01.controller;
 
 
 
-import com.myproject01.myproject01.ImageService;
 import com.myproject01.myproject01.dto.CategoryDTO;
 import com.myproject01.myproject01.dto.ProductDTO;
-import com.myproject01.myproject01.entity.Category;
+
 import com.myproject01.myproject01.service.CategoryService;
 import com.myproject01.myproject01.service.ProductService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Null;
+import com.myproject01.myproject01.utitls.qrCodeScanner;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,7 +23,9 @@ import java.io.IOException;
 import java.util.List;
 
 
-@Controller
+
+
+@RestController
 @RequestMapping(value = "/products")
 public class ProductController {
 
@@ -53,12 +55,18 @@ public class ProductController {
 
 
     @GetMapping("/getall")
-    public ResponseEntity<List<ProductDTO>> getallproducts(){
+    public ResponseEntity<List<ProductDTO>> getallproducts() throws Exception {
         List<ProductDTO> productDTOList =this.productService.getAllProducts();
+
+
+        for(int i=0; i<productDTOList.size(); i++){
+            qrCodeScanner.generateQRCode(productDTOList.get(i));
+        }
+
         return  ResponseEntity.ok(productDTOList);
     }
 
-// find all products by User. All users who add their products on your site.
+
 
     @GetMapping("user/{userId}")
     public ResponseEntity<List<ProductDTO>> getProductByUser(@Valid @PathVariable("userId")  Integer Id){
@@ -78,8 +86,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable("id") Integer id){
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable("id") Integer id) throws Exception {
         ProductDTO productDTO = this.productService.getProductByID(id);
+        qrCodeScanner.generateQRCode(productDTO);
         return ResponseEntity.ok(productDTO);
     }
 
