@@ -11,7 +11,7 @@
 - [API Documentation](#api-documentation)
 - [Custom Exceptions](#custom-exceptions)
 - [Contributing](#contributing)
-- [License](#license)
+
 - [Contact](#contact)
 
 ## About the Project
