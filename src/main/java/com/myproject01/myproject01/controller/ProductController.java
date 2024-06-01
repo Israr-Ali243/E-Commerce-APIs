@@ -2,7 +2,6 @@ package com.myproject01.myproject01.controller;
 
 
 
-import com.myproject01.myproject01.dto.CategoryDTO;
 import com.myproject01.myproject01.dto.ProductDTO;
 
 import com.myproject01.myproject01.service.CategoryService;
@@ -15,8 +14,6 @@ import com.myproject01.myproject01.utitls.qrCodeScanner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,8 +50,8 @@ public class ProductController {
     public ResponseEntity<List<ProductDTO>> getallproducts() throws Exception {
         List<ProductDTO> productDTOList =this.productService.getAllProducts();
 
-        for(int i=0; i<productDTOList.size(); i++){ // it will genrate all QR-Code for all products
-            qrCodeScanner.generateQRCode(productDTOList.get(i));
+        for (ProductDTO productDTO : productDTOList) { // it will genrate all QR-Code for all products
+            qrCodeScanner.generateQRCode(productDTO);
         }
 
         return  ResponseEntity.ok(productDTOList);

@@ -1,13 +1,12 @@
 package com.myproject01.myproject01.controller;
 
 import com.myproject01.myproject01.dto.CartItemDTO;
-import com.myproject01.myproject01.dto.ProductDTO;
+
 import com.myproject01.myproject01.service.CartItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
