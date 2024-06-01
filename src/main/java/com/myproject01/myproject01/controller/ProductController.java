@@ -7,6 +7,8 @@ import com.myproject01.myproject01.dto.ProductDTO;
 
 import com.myproject01.myproject01.service.CategoryService;
 import com.myproject01.myproject01.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import com.myproject01.myproject01.utitls.qrCodeScanner;
 
@@ -27,6 +29,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/products")
+@Tag(name = "Product-Controller")
 public class ProductController {
 
     @Autowired
@@ -35,19 +38,10 @@ public class ProductController {
  private   CategoryService categoryService;
 
 
-    @GetMapping ("category/get")
-    public ResponseEntity<List<CategoryDTO>> Home(Model model){
-          List<CategoryDTO> categoryDTOList = this.categoryService.getAllCategory();
-        System.out.println(categoryDTOList.toString());
-          model.addAttribute("category", categoryDTOList);
-        return ResponseEntity.ok(categoryDTOList);
-    }
-
-
 
     @PostMapping( "/add")
+    @Operation(summary = "Add New Product")
     public ResponseEntity<ProductDTO> createProduct(@Valid @ModelAttribute ProductDTO productDTO, @RequestParam("file") MultipartFile file) throws IOException {
-
         ProductDTO productDTO1 = this.productService.CreateProduct(productDTO, 552, 1, file);
         return ResponseEntity.ok(productDTO1);
     }
@@ -55,11 +49,11 @@ public class ProductController {
 
 
     @GetMapping("/getall")
+    @Operation(summary = "Find All Products")
     public ResponseEntity<List<ProductDTO>> getallproducts() throws Exception {
         List<ProductDTO> productDTOList =this.productService.getAllProducts();
 
-
-        for(int i=0; i<productDTOList.size(); i++){
+        for(int i=0; i<productDTOList.size(); i++){ // it will genrate all QR-Code for all products
             qrCodeScanner.generateQRCode(productDTOList.get(i));
         }
 
@@ -69,6 +63,7 @@ public class ProductController {
 
 
     @GetMapping("user/{userId}")
+    @Operation(summary = "Find Products by UserID")
     public ResponseEntity<List<ProductDTO>> getProductByUser(@Valid @PathVariable("userId")  Integer Id){
 
         List<ProductDTO> productDTOList = this.productService.getProductByUser(Id);
@@ -76,8 +71,8 @@ public class ProductController {
     }
 
 
-    // Serach Product by Categority
     @GetMapping("/find-product-by-category/{keyword}")
+    @Operation(summary = "Find Product By Category")
     public ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable("keyword") String keyword){
 
         List<ProductDTO> productDTOList = this.productService.getProductByCategory(keyword);
@@ -86,6 +81,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Find Product By ID")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable("id") Integer id) throws Exception {
         ProductDTO productDTO = this.productService.getProductByID(id);
         qrCodeScanner.generateQRCode(productDTO);
@@ -93,11 +89,20 @@ public class ProductController {
     }
 
     @DeleteMapping("delete/{id}")
+    @Operation(summary = "Delete Product By ID")
     public ResponseEntity<String> deleteProduct(@PathVariable("id") Integer id){
         this.productService.deleteProduct(id);
         return ResponseEntity.ok("Deleted Successfully");
     }
 
 
+    //    @GetMapping ("category/get")
+//    @Operation(summary = "Find ")
+//    public ResponseEntity<List<CategoryDTO>> Home(Model model){
+//          List<CategoryDTO> categoryDTOList = this.categoryService.getAllCategory();
+//        System.out.println(categoryDTOList.toString());
+//          model.addAttribute("category", categoryDTOList);
+//        return ResponseEntity.ok(categoryDTOList);
+//    }
 
 }
